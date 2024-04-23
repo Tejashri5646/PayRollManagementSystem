@@ -24,9 +24,11 @@ body {
 .logo
 {
     position: absolute;
-    right: 10px;
-    left: 10px;
-    width: 40px;
+    right: 1rem;
+    left: 1rem;
+    height: 5rem;
+    width: 5rem;
+    top: 1rem;
 }
 .logo1
 {
@@ -104,9 +106,9 @@ nav a {
 
 .home
 {
-    padding: 0;
+    padding: 4px;
     background-color: #baa5dd;
-    margin: 0;
+    margin:0px 0.1rem 0px 0.1rem;
     height: 1.5rem;
     width:100%;
 
@@ -119,7 +121,7 @@ footer {
     background-color: white;
     color: grey;
     text-align: center;
-    padding: 10px;
+    
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -130,4 +132,33 @@ footer {
 {
   position: absolute;
   right: 30px;
+}
+/* Login Header */
+.login-head {
+    border: #dfa51f 0.1rem solid;
+    border-bottom: #dfa51f 0.3rem solid;
+    color: white !important;
+    text-align: center;
+    box-sizing: content-box;
+    margin-bottom: 0px;
+    height: 100px;
+    display: flex;
+    padding: 0.1rem;
+    margin: 0.1rem;
+    justify-content: center;
+    background-color: #051C82;
+}
+.main-title-login{
+    font-weight: 600 !important;
+    margin-top: 1rem;
+}
+
+.time{
+    font-size: small;
+    margin-right: 0rem;
+    font-weight: 500;
+}
+.img-hon{
+height: 200px;
+    width: 100px;
 }
