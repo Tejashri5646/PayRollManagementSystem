@@ -159,6 +159,93 @@ footer {
     font-weight: 500;
 }
 .img-hon{
-height: 200px;
+    height: 200px;
     width: 100px;
+    margin-left: 1rem !important;
+    position: absolute;
+}
+.login-container{
+    display: flex;
+    
+}
+
+.login-box{
+    margin-left: 40rem;
+    margin-top: 2rem;
+    text-shadow: #0818A8;
+    
+}
+
+
+
+.login-form {
+    justify-content: center;
+    margin-left: -1rem;
+    margin-top: 2rem;
+    text-shadow: #6495ED ;
+    flex: 1;
+    border: rgba(0, 0, 0, 0.402) solid 0.05rem;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 25rem;
+    border-top: #3953c7 solid 1.5rem;
+}
+
+
+label {
+    display: inline;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 15rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*justify-content: space-between;*/
+}
+
+.login-button,
+.cancel-button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 2rem;
+}
+
+.login-button {
+    background-color: #3953c7 !important;
+    color: #fff !important;
+    font-weight: 500 !important;
+}
+
+.cancel-button {
+    background-color: #3953c7 !important;
+    color: #fff !important;
+    font-weight: 500 !important;
+}
+.username-container{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.password-container
+{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
