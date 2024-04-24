@@ -33,16 +33,26 @@ body {
 .logo1
 {
     top: 3rem;
-    position: absolute;
-    right: 2.5rem;
-    width: 2.5rem;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+    right: 3rem;
+    width: 3rem;
 }
 .user
 {
+    display: flex;
+    justify-content: space-around;
     position: absolute;
     right: 70px;
     color: #ecf3f0;
 
+}
+.user-info{
+    text-align: end;
+    margin: 0.5rem;
+    padding: 0.3rem;
+    font-size: small;
+    color: #7556A6 !important;
 }
 .time
 {
@@ -244,4 +254,10 @@ input {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+/* Cast Master */
+.master-tab{
+    margin-top: 2rem;
+    margin-left: 20rem;
+    width: 30rem;
 }

@@ -19,27 +19,38 @@ const users = [
 app.get("/",(req,res)=>{
     res.send("Hi I am root");
 });
-
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find(u => u.username === username && u.password === password);
-
-    if (user) {
-        res.render('payrolls/home', { username }); // Render home page with username
-    } else {
-        res.redirect('/'); // Redirect back to login page if login fails
-    }
-});
-
+// Login Page
 app.get("/login", async (req, res) => {
     console.log("Hello from Login");
     const currentDate = new Date();
     const formattedDate = formatDate(currentDate);
     res.render("./payrolls/index.ejs",{formattedDate});
 });
+// Home Page after Logging in
+app.post('/Home', (req, res) => {
+    const { username, password } = req.body;
+    const user = users.find(u => u.username === username && u.password === password);
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    if (user) {
+        res.render('payrolls/home', { formattedDate, username }); // Render home page with username
+    } else {
+        res.redirect('/login'); // Redirect back to login page if login fails
+    }
+});
+
+
 app.get("/Home", async (req, res) => {
     console.log("Hello from Home")
     res.render("./payrolls/home.ejs");
+});
+
+// Cast Master Page
+app.get("/Home/castMaster",(req,res)=>{
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    const {username} = req.body;
+    res.render("payrolls/castMaster.ejs",{formattedDate,username})
 });
 app.listen(8080,()=>{
     console.log("Server listening at port 8080");

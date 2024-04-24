@@ -1,10 +1,20 @@
 <div class="head">
     <header>
     <img src="/log.png" class="logo" >
-    <img src="/user.jpeg" class="logo1" >
-    <div class="user" >Branch Name :- HEAD OFFICE
-    <div id="datetime" class="time">
-    </div>
+    
+    <div class="user" >
+        <div class="user-info time">
+            <span style="color: green;">Welcome! <%= username %></span><br>
+            <span style="color: darkgoldenrod;">Branch Name :- Head Office</span><br>
+            
+            <span> <%= formattedDate %></span>
+            
+        </div>
+        <div class="user-logo">
+            <img src="/user.jpeg" class="logo1" >
+        </div>
+        
+    
     </div>
     <h5 class="main-title">Sahakarmaharshi Hon.Jaywantrao Bhosale (Appa) Nagari Sahakari Patsantha Maryadit., Karad</h5>
     </header>
@@ -16,11 +26,11 @@
                 <div class="dropdown">
                     <li class ="dropbtn">Master</li>
                      <div class="dropdown-content">
-                     <a href=""> cast </a>
+                     <a href="http://localhost:8080/Home/castMaster"> cast </a>
                      <a href=""> Pay section master </a>
                     <a href=""> Grade master </a>
                     <a href=""> Section </a>
-                     <a href="table1.html"> Allowance </a>
+                     <a href=""> Allowance </a>
                     <a href=" "> Allowance Footer </a>
                     <a href=" "> Deduction </a>
                      <a href=""> Deduction Footer </a>
@@ -35,7 +45,7 @@
             <li><a href="#Daily Working">Daily Working</a></li>
             <li><a href="#Registers">Registers</a></li>
             <li><a href="#House">House Keeping</a></li>
-            <li><a href="#contact">Logout</a></li>
+            <li><a href="http://localhost:8080/login">Logout</a></li>
         </ul>
     </nav>
 </div>
