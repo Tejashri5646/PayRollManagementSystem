@@ -8,7 +8,7 @@
             <h2>ProBank Payroll Software</h2>
             <div class="login-form">
                 <h5>Login to Banking Application</h5>
-            <form>
+            <form action="/login" method="POST">
                 <div class="username-container">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -20,8 +20,8 @@
                 </div>
 
                 <div class="button-container">
-                    <button type="submit" class="btn login-button">Login</button> &nbsp; &nbsp; &nbsp;
-                    <button type="button" class="btn cancel-button">Cancel</button>
+                    <button type="submit" class="btn active login-button" aria-pressed="true">Login</button> &nbsp; &nbsp; &nbsp;
+                    <button type="button" class="btn active cancel-button" aria-pressed="true">Cancel</button>
                 </div>
             </form>
             </div>

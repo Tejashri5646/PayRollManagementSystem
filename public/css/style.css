@@ -32,9 +32,10 @@ body {
 }
 .logo1
 {
+    top: 3rem;
     position: absolute;
-    right: 10px;
-    width: 40px;
+    right: 2.5rem;
+    width: 2.5rem;
 }
 .user
 {
@@ -172,12 +173,8 @@ footer {
 .login-box{
     margin-left: 40rem;
     margin-top: 2rem;
-    text-shadow: #0818A8;
-    
+    text-shadow: #0818A8;   
 }
-
-
-
 .login-form {
     justify-content: center;
     margin-left: -1rem;
@@ -189,7 +186,7 @@ footer {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     height: 25rem;
     border-top: #3953c7 solid 1.5rem;
 }
@@ -213,7 +210,6 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*justify-content: space-between;*/
 }
 
 .login-button,

@@ -11,9 +11,26 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, 'public')));
 
+const users = [
+    { username: 'user1', password: 'password1' },
+    { username: 'user2', password: 'password2' }
+];
+
 app.get("/",(req,res)=>{
     res.send("Hi I am root");
 });
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (user) {
+        res.render('payrolls/home', { username }); // Render home page with username
+    } else {
+        res.redirect('/'); // Redirect back to login page if login fails
+    }
+});
+
 app.get("/login", async (req, res) => {
     console.log("Hello from Login");
     const currentDate = new Date();
