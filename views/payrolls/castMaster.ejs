@@ -1,16 +1,32 @@
 <% layout('./layouts/boilerplate') %>
 <body>
     <div class="cast-master">
-        <div class="master-tab">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Add new</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Open Existing</a>
-                </li>
-                
-              </ul>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item " role="presentation">
+          <button onclick="openTab(event, 'tab1')" class="tab-btn nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">Add new</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button onclick="openTab(event, 'tab2')" class="nav-link tab-btn " id="profile-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="profile" aria-selected="false">Open Existing</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="home-tab">
+          <div class="open-title">
+            <h6>Cast Master</h6>
+          </div>
+          <div class="code-container">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
         </div>
+
+        <div class="code-container">
+            <label for="  ">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        </div>
+        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">Profile tab content...</div>
+        
+      </div>
+      
     </div>
 </body>

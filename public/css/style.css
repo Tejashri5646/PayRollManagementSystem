@@ -256,8 +256,55 @@ input {
     align-items: center;
 }
 /* Cast Master */
-.master-tab{
-    margin-top: 2rem;
-    margin-left: 20rem;
-    width: 30rem;
+.cast-master{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.tab-pane{
+    display: none;
+}
+.tab-pane.active{
+    display: block;
+    height: max-content;
+    width: 50rem;
+    border: black solid 0.05rem;
+   
+}
+
+    .tab-btn.active{
+        background-color: #7556A6 !important;
+        color: #fff !important;
+    }
+.tab-btn {
+    background-color: #fff;
+    float: left;
+    border: 1px solid #ccc;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    color: black !important;
+    margin-left: 0.5rem !important;
+    text-decoration: none !important;
+}
+.tab-container {
+    overflow: hidden;
+}
+.tab-btn:hover {
+    background-color: #ddd;
+}
+
+.open-title{
+    margin: 0.03rem;
+    margin-top: 0.3rem;
+    margin-left: 0.3rem;
+    margin-right: 0.3rem;
+    background-color: #ac8be2;
+    color: #fff;
+    border: #7556A6 solid 0.04rem;
+    border-radius: 0.05rem;
+    align-items: center;
 }
