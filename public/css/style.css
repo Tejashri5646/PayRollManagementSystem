@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
 
 .head {
@@ -118,10 +119,10 @@ nav a {
 .home
 {
     padding: 4px;
-    background-color: #baa5dd;
+    background-color: #b7b3ffdb;
     margin:0px 0.1rem 0px 0.1rem;
     height: 1.5rem;
-    width:100%;
+    width:92.5rem;
 
 }
 h6
@@ -268,17 +269,21 @@ input {
 .tab-pane.active{
     display: block;
     height: max-content;
-    width: 50rem;
+    width: 60rem;
     border: black solid 0.05rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
    
 }
 
     .tab-btn.active{
-        background-color: #7556A6 !important;
+        background-color: #857efc !important;
         color: #fff !important;
     }
 .tab-btn {
     background-color: #fff;
+    font-weight: 500 !important;
     float: left;
     border: 1px solid #ccc;
     outline: none;
@@ -302,9 +307,125 @@ input {
     margin-top: 0.3rem;
     margin-left: 0.3rem;
     margin-right: 0.3rem;
-    background-color: #ac8be2;
+    background-color: #b0acfa;
     color: #fff;
-    border: #7556A6 solid 0.04rem;
+    border: #857efc solid 0.04rem;
     border-radius: 0.05rem;
     align-items: center;
+}
+.code-container{
+    margin: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.code-container input{
+    height: 1.35rem;
+    border-radius: 0.01rem;
+}
+#code, #name{
+    width: max-content;
+}
+#code:hover{
+    background-color: #b0acfa !important;
+    color: #fff !important;
+}
+#name:hover{
+    background-color: #b0acfa !important;
+    color: #fff !important;
+}
+.btn-grp-open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.btn-grp-open button{
+    background-color: #857efc;
+    margin: 0.2rem;
+    width: 4rem;
+    color: #fff;
+    font-weight: 500;
+}
+.cast-table{
+    width: 50rem;
+    padding: 1rem;
+    margin: 0 5rem;
+}
+.table-header th{
+    background-color:#9590f3 !important;
+    color: #fff !important;
+
+}
+form button{
+    color: #0818A8 !important;
+}
+
+.modify{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+/* Employee Information */
+.employee-container{
+    margin: 0.05rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -14.9rem;
+    height: 100%; /* Adjust this height as needed */
+   
+}
+.employee-container input{
+    height: 1.75rem;
+    border-radius: 0.01rem;
+}
+.search-btn{
+    height: 2.2rem;
+}
+.emp-name{
+    margin-left: -18rem;
+}
+.type-dropdown{
+    height: 1.75rem;
+    width: 7rem;
+    
+}
+
+.emp-dropdown{
+    margin-left: -18.3rem;
+}
+.general-container{
+    font-size: 0.8rem !important;
+    margin-top: 0.5rem;
+}
+.general-container input{
+    height: 1.35rem;
+    border-radius: 0.01rem;
+}
+.grade-code{
+    margin-left: 1.8rem !important;
+}
+.section-code{
+    margin-left: 1.2rem;
+}
+.branch-code{
+    margin-left: 1.4rem;
+}
+.grade-code input, .section-code input, .branch-code input{
+    width: 7rem !important;
+}
+
+.joining-date{
+    margin-left: 1.4rem;
+}
+.permanent-date{
+    margin-left: 0.1rem;
+}
+.pt-check{
+    color: gray;
+    font-size: small !important;
+    margin-left: 8rem;
 }

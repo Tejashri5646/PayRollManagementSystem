@@ -5,6 +5,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 app.engine('ejs',ejsMate);
 
+const castCode = require("./models/castcodes");
+
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
@@ -50,7 +52,28 @@ app.get("/Home/castMaster",(req,res)=>{
     const currentDate = new Date();
     const formattedDate = formatDate(currentDate);
     const {username} = req.body;
-    res.render("payrolls/castMaster.ejs",{formattedDate,username})
+    res.render("payrolls/castMaster.ejs",{formattedDate,username,castCode})
+});
+app.delete("/chats/:id ",async (req,res)=>{
+    // let {code} = castCode.code;
+    // let chatToBeDeleted = await Chat.findByIdAndDelete(id);
+    res.redirect("payrolls/castMaster.ejs");
+    
+});
+
+// Modify
+app.get("/Home/castMaster/castModify",(req,res)=>{
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    const {username} = req.body;
+    res.render("payrolls/castModify",{formattedDate,username,castCode});
+})
+// Employee Information
+app.get("/employeeInfo",(req,res)=>{
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    const {username} = req.body;
+    res.render("payrolls/employeeInfo",{formattedDate,username});
 });
 app.listen(8080,()=>{
     console.log("Server listening at port 8080");

@@ -1,0 +1,110 @@
+<% layout('./layouts/boilerplate') %>
+<body>
+    <div class="home">
+        <nav>
+            <h6>Employee Information</h6>
+        </nav>
+    </div>
+    <div class="search-tabs">
+        <div class="employee-container">
+            <label for="code" class="form-label">Employee Code: &nbsp;</label>
+            <input type="text" id="code" name="username" placeholder="Enter Code" required> &nbsp;
+            <button type="button" class="search-btn btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg></button>
+        </div>
+
+        <div class=" employee-container emp-name">
+            <label for="name" class="form-label">Employee Name: &nbsp;</label>
+            <input type="text" id="name" name="name" placeholder="Enter Name" required>
+        </div>
+        <div class="employee-container emp-dropdown">
+            <label for="name" class="form-label">Type: &nbsp;</label>
+            <div class="dropdown">
+                <select name="" id="" class="type-dropdown">
+                
+                    
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <option value="permanent" class="active">Permanent</option>
+                    <option value="temporary">Temporary</option>
+                </div>
+                </select>
+            </div>
+            
+        </div>
+    </div>
+    <div class="cast-master">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item " role="presentation">
+            <button onclick="openTab(event, 'tab1')" class="tab-btn nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">General Information</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button onclick="openTab(event, 'tab2')" class="nav-link tab-btn " id="personal-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="profile" aria-selected="false">Other Information</button>
+          </li>
+          <li class="nav-item " role="presentation">
+            <button onclick="openTab(event, 'tab1')" class="tab-btn nav-link " id="address-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">Address Information</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button onclick="openTab(event, 'tab2')" class="nav-link tab-btn " id="other-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="profile" aria-selected="false">Personal Information</button>
+          </li>
+        </ul>
+        
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane general-tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="general-tab">
+            <div class="open-title">
+              <h6>Cast Master</h6>
+            </div>
+            <div class="general-container grade-code">
+              <label for="code">Grade Code: &nbsp;</label>
+              <input type="text" id="code" name="username" placeholder="Enter Code" required>
+              <button type="button" class="search-btn btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg></button>
+          </div>
+  
+          <div class="general-container section-code">
+              <label for="name">Section Code: &nbsp;</label>
+              <input type="text" id="name" name="name" placeholder="Enter Name" required>
+              <button type="button" class="search-btn btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg></button>
+          </div>
+          <div class="general-container branch-code">
+            <label for="name">Branch Code: &nbsp;</label>
+            <input type="text" id="name" name="name" placeholder="Enter Name" required>
+           <button type="button" class="search-btn btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+              </svg></button>
+        </div>
+        <div class="general-container joining-date">
+            <label for="date">Joining Date: &nbsp;</label>
+            <input type="text" id="code" name="username" placeholder="Enter Code" required>
+            <label for="basic">Basic: &nbsp;</label>
+            <input type="text" id="code" name="username" placeholder="Enter Code" required>
+            
+        </div>
+        <div class="general-container permanent-date">
+            <label for="date">Permanent Date: &nbsp;</label>
+            <input type="text" id="code" name="username" placeholder="Enter Code" required>
+            
+        </div>
+        <div class="pt-next">
+            <div class="general-container pt-check">
+                <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gridCheck">
+                      <label class="form-check-label" for="gridCheck">
+                        Do not cut P.T. deduction
+                      </label>
+                    </div>
+                  </div>
+            </div>
+            <div class="next">
+                <div class="btn-grp-open">
+                    <button class="btn btn-sm">Save</button>
+                </div>
+            </div>
+        </div>
+         </div>
+        </div> 
+</body>

@@ -19,3 +19,15 @@ function openTab(evt, tabName) {
     // Activate the clicked tab button
     evt.currentTarget.classList.add("active");
 }
+
+// Delete button from Table
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const id = button.getAttribute('data-id');
+            deleteChat(id);
+        });
+    });
+});
+
