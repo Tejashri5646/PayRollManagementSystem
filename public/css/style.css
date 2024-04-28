@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    overflow: auto;
+    overflow: auto !important;
 }
 
 .head {
@@ -122,7 +122,7 @@ nav a {
     background-color: #b7b3ffdb;
     margin:0px 0.1rem 0px 0.1rem;
     height: 1.5rem;
-    width:92.5rem;
+    width:91.5rem;
 
 }
 h6
@@ -135,7 +135,7 @@ footer {
     text-align: center;
     
     position: fixed;
-    bottom: 0;
+    bottom: -1.5rem;
     width: 100%;
     height: 6%;
 }
@@ -398,7 +398,6 @@ form button{
     margin-left: -18.3rem;
 }
 .general-container{
-    font-size: 0.8rem !important;
     margin-top: 0.5rem;
 }
 .general-container input{
@@ -428,4 +427,12 @@ form button{
     color: gray;
     font-size: small !important;
     margin-left: 8rem;
+}
+.btn-grps-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 5rem;
 }
