@@ -133,7 +133,7 @@ footer {
     background-color: white;
     color: grey;
     text-align: center;
-    
+    margin-left: 0rem !important;
     position: fixed;
     bottom: -1.5rem;
     width: 100%;
@@ -435,4 +435,111 @@ form button{
     margin: 2rem;
     margin-top: 1rem;
     margin-bottom: 5rem;
+}
+
+/* Other Information from Employee Information */
+.other-information{
+    margin-top: 1rem;
+
+}
+.other-container input{
+    height: 1.35rem;
+    border-radius: 0.01rem;
+}
+.education input {
+    margin-top: 1rem;
+    margin-left: 1.9rem;
+}
+.institute input{
+    margin-left: 1.7rem;
+}
+.language input{
+    margin-left: 0.3rem;
+}
+.gender input{
+    margin-left: 5rem;
+}
+.caste input{
+    margin-left: 5.8rem;
+}
+.fathername input{
+    margin-left: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+/* Address */
+.address-container textarea{
+    width: 35rem !important;
+    height: 4rem;
+    border-radius: 0.1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Personal */
+.personal-container input{
+    height: 1.35rem;
+    border-radius: 0.01rem;
+    margin-top: 0.5rem;
+}
+.blood-grp input{
+    margin-left: 2.5rem;
+}
+.birthdate input{
+    margin-left: 4rem;
+}
+.mothertongue input{
+    margin-left: 1.5rem;
+}
+/* Pay Correction */
+.pay-container{
+    margin-top: 1rem;
+    margin: 0.05rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -14.9rem;
+    height: 100%; /* Adjust this height as needed */
+}
+.pay-container input{
+    height: 1.75rem;
+    border-radius: 0.01rem;
+}
+.empCode input, .branch input, .gradeCode input{
+    width: 5rem !important;
+}
+.empCode, .branch, .gradeCode{
+    margin-right: 0.5rem !important;
+}
+.empCode{
+    margin-left: -16.1rem;
+}
+.gradeCode{
+    margin-left: -14.6rem;
+}
+.pay-month{
+    margin-top: 1rem;
+    margin-left: -8rem;
+}
+.pay-date{
+    margin-left: -9.2rem;
+}
+.basic-pay{
+    margin-top:0.2rem;
+    margin-left: 12.6rem;
+}
+.da{
+    margin-left: 5rem;
+}
+.amount{
+    margin-left: -11.5rem;
+}
+.selectA input{
+    height: auto;
+}
+.form-check-label{
+    font-size: small !important;
+}
+.selectA{
+    margin-left: -10rem;
 }

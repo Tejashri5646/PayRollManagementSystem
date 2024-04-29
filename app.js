@@ -75,6 +75,12 @@ app.get("/employeeInfo",(req,res)=>{
     const {username} = req.body;
     res.render("payrolls/employeeInfo",{formattedDate,username});
 });
+app.get("/payCorrection",(req,res)=>{
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    const {username} = req.body;
+    res.render("payrolls/payCorrection",{formattedDate,username});
+});
 app.listen(8080,()=>{
     console.log("Server listening at port 8080");
 });
