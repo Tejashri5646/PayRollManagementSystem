@@ -11,7 +11,7 @@ const deleteCastCode = require('./init/castCode/deleteCastCode');
 
 // const castCode = require("./init/castcodes");
 const { createConnection } = require("net");
-const insertquery = require("./init/castCode/insertCastCode");
+const {createCastTable} = require("./init/castCode/insertCastCode");
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
@@ -27,22 +27,7 @@ const createConnectionAndTable = () => {
         password: '#teju1357',
         database: 'payroll'
     });
-
-    const createTableSQL = `
-        CREATE TABLE IF NOT EXISTS castCodes (
-            code INT NOT NULL,
-            name VARCHAR(255) NOT NULL
-        )
-    `;
-
-    connection.query(createTableSQL, (err, results) => {
-        if (err) {
-            console.error('Error creating table:', err);
-            return;
-        }
-        console.log('Table created successfully');
-        insertquery(connection); // Assuming insertquery is defined and exported properly
-    });
+   createCastTable();
 
     return connection;
 };

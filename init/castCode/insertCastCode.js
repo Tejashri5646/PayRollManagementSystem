@@ -1,4 +1,28 @@
 const mysql = require('mysql2');
+const createCastTable = () =>{
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '#teju1357',
+        database: 'payroll'
+    });
+
+    const createTableSQL = `
+        CREATE TABLE IF NOT EXISTS castCodes (
+            code INT NOT NULL,
+            name VARCHAR(255) NOT NULL
+        )
+    `;
+
+    connection.query(createTableSQL, (err, results) => {
+        if (err) {
+            console.error('Error creating table:', err);
+            return;
+        }
+        console.log('Table created successfully');
+        insertquery(connection); // Assuming insertquery is defined and exported properly
+    });
+}
 
 const cast_codes = require('./castcodes');
 
@@ -30,4 +54,5 @@ const cast_codes = require('./castcodes');
         // connection.end(); // You may or may not close the connection here depending on your use case
     });
 };
-module.exports = insertquery;
+
+module.exports = {createCastTable};
