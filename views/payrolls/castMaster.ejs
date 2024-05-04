@@ -41,16 +41,19 @@
               </tr>
             </thead>
             <tbody>
-              <% for(let cast of castCode){ %>
-                <tr>
-                  <th scope="row"><%= cast.code %></th>
-                  <td><%= cast.name %></td>
-                  <td><a href="http://localhost:8080/Home/castMaster/castModify">Modify</a></td>
-                  <td><form method="post" action="http://localhost:8080/Home/castMaster/id<%= cast.code %>?_method=DELETE">
-                    <button class="btn">Delete</button>
-                </form></td>
-                <% } %>
-            </tbody>
+              <% for(const [code, name] of Object.entries(castCodes)){ %>
+                  <tr>
+                      <th scope="row"><%= code %></th>
+                      <td><%= castCodes[code] %></td>
+                      <td><a href="http://localhost:8080/Home/castMaster/castModify">Modify</a></td>
+                      <td>
+                          <form method="post" action="http://localhost:8080/Home/castMaster/<%= code %>?_method=DELETE">
+                              <button class="btn">Delete</button>
+                          </form>
+                      </td>
+                  </tr>
+              <% } %>
+          </tbody>
           </table>
         </div>
         </div>
