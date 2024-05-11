@@ -8,11 +8,22 @@ const mysql = require('mysql2');
 const insertCastCodes = require("./init/castCode/insertCastCode");
 const fetchCastCodes = require('./init/castCode/fetchCastCodes');
 const deleteCastCode = require('./init/castCode/deleteCastCode');
+const insertGradCodes = require("./init/gradMaster/insertGradCodes");
+const fetchGradCodes = require("./init/gradMaster/fetchGradCodes");
+const deleteGradCode = require("./init/gradMaster/deleteGradCodes");
 
+const insertSectCodes = require("./init/sectMaster/insertSectCodes");
+const fetchSectCodes = require("./init/sectMaster/fetchSectCodes");
+const deleteSectCode = require("./init/sectMaster/deleteSectCodes");
+
+const fetchBranchCodes = require("./init/branchMaster/fetchBranchCodes");
+const deleteBranchCode = require("./init/branchMaster/deleteBranchCodes");
 // const castCode = require("./init/castcodes");
 const { createConnection } = require("net");
 const {createCastTable} = require("./init/castCode/insertCastCode");
-
+const {createGradeTable} = require("./init/gradMaster/insertGradCodes");
+const {createSectTable} = require("./init/sectMaster/insertSectCodes");
+const {createBranchTable} = require("./init/branchMaster/insertBranchCodes");
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
@@ -28,7 +39,9 @@ const createConnectionAndTable = () => {
         database: 'payroll'
     });
    createCastTable();
-
+    createGradeTable();
+    createSectTable();
+    createBranchTable();
     return connection;
 };
 const connection = createConnectionAndTable();
@@ -62,8 +75,11 @@ app.post('/Home', (req, res) => {
 
 
 app.get("/Home", async (req, res) => {
-    console.log("Hello from Home")
-    res.render("./payrolls/home.ejs");
+    const username = req.query.username; // Extract username from URL parameters
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    
+    res.render("./payrolls/home.ejs",{ formattedDate, username });
 });
 
 // Cast Master Page
@@ -104,7 +120,207 @@ app.delete("/Home/castMaster/:id", async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+// Route to handle saving data
+app.post("/saveData", (req, res) => {
+    const { code, name } = req.body;
+    // Code to save data to the databasect the user or send a response
+    if (!code) {
+        return res.status(400).send("Code field is required");
+    }
 
+    // Insert data into the database
+    const query = "INSERT INTO castCodes (code, name) VALUES (?, ?)";
+    connection.query(query, [code, name], (error, results) => {
+        if (error) {
+            console.error('Error saving data:', error);
+            res.status(500).send("Error saving data");
+            return;
+        }
+        console.log('Data saved successfully');
+        res.redirect("/Home/castMaster");
+    
+    });
+});
+// Grade Master (e.g., using a MongoDB or SQL query)
+    // Once saved, you can redire
+app.get("/Home/gradMaster",async (req,res)=>{
+    try {
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
+        const { username } = req.body;
+
+        // Fetch cast codes asynchronously
+        const gradCodes = await fetchGradCodes(connection);
+
+        // Render the template with the retrieved cast codes
+        res.render("payrolls/gradMast.ejs", { formattedDate, username, gradCodes });
+    } catch (err) {
+        // Handle errors
+        console.error('Error in /Home/gradMaster:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.delete("/Home/gradMaster/:id", async (req, res) => {
+    try {
+        const codeToDelete = req.params.id;
+
+        // Delete the cast code from the database
+        const affectedRows = await deleteGradCode(codeToDelete);
+
+        // If the code was deleted from the database, respond with success
+        if (affectedRows > 0) {
+            res.redirect('http://localhost:8080/Home/gradMaster');
+        } else {
+            // If the code was not found in the database, respond with error
+            res.status(404).send(`grad code ${codeToDelete} not found`);
+        }
+    } catch (error) {
+        // Handle any errors that occur during the deletion process
+        console.error('Error deleting grade code:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+// Route to handle saving data
+app.post("/gradsaveData", (req, res) => {
+    const { code, name } = req.body;
+    // Code to save data to the databasect the user or send a response
+    if (!code) {
+        return res.status(400).send("Code field is required");
+    }
+
+    // Insert data into the database
+    const query = "INSERT INTO gradCodes (code, name) VALUES (?, ?)";
+    connection.query(query, [code, name], (error, results) => {
+        if (error) {
+            console.error('Error saving data:', error);
+            res.status(500).send("Error saving data");
+            return;
+        }
+        console.log('Data saved successfully');
+        res.redirect("/Home/gradMast");
+    
+    });
+});
+// SectionMaster
+
+app.get("/Home/sectMaster",async (req,res)=>{
+    try {
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
+        const { username } = req.body;
+
+        // Fetch cast codes asynchronously
+        const sectCodes = await fetchSectCodes(connection);
+
+        // Render the template with the retrieved cast codes
+        res.render("payrolls/sectMast.ejs", { formattedDate, username, sectCodes });
+    } catch (err) {
+        // Handle errors
+        console.error('Error in /Home/sectMaster:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.delete("/Home/sectMaster/:id", async (req, res) => {
+    try {
+        const codeToDelete = req.params.id;
+
+        // Delete the cast code from the database
+        const affectedRows = await deleteSectCode(codeToDelete);
+
+        // If the code was deleted from the database, respond with success
+        if (affectedRows > 0) {
+            res.redirect('http://localhost:8080/Home/sectMaster');
+        } else {
+            // If the code was not found in the database, respond with error
+            res.status(404).send(`sect code ${codeToDelete} not found`);
+        }
+    } catch (error) {
+        // Handle any errors that occur during the deletion process
+        console.error('Error deleting sect code:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+// Route to handle saving data
+app.post("/sectsaveData", (req, res) => {
+    const { code, name } = req.body;
+    // Code to save data to the databasect the user or send a response
+    if (!code) {
+        return res.status(400).send("Code field is required");
+    }
+
+    // Insert data into the database
+    const query = "INSERT INTO sectCodes (code, name) VALUES (?, ?)";
+    connection.query(query, [code, name], (error, results) => {
+        if (error) {
+            console.error('Error saving data:', error);
+            res.status(500).send("Error saving data");
+            return;
+        }
+        console.log('Data saved successfully');
+        res.redirect("/Home/sectMast");
+    
+    });
+});
+
+// Branch Master
+app.get("/Home/branchMaster",async (req,res)=>{
+    try {
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
+        const { username } = req.body;
+
+        // Fetch cast codes asynchronously
+        const branchCodes = await fetchBranchCodes(connection);
+
+        // Render the template with the retrieved cast codes
+        res.render("payrolls/branchMast.ejs", { formattedDate, username, branchCodes });
+    } catch (err) {
+        // Handle errors
+        console.error('Error in /Home/branchMaster:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.delete("/Home/branchMaster/:id", async (req, res) => {
+    try {
+        const codeToDelete = req.params.id;
+
+        // Delete the cast code from the database
+        const affectedRows = await deleteBranchCode(codeToDelete);
+
+        // If the code was deleted from the database, respond with success
+        if (affectedRows > 0) {
+            res.redirect('http://localhost:8080/Home/branchMaster');
+        } else {
+            // If the code was not found in the database, respond with error
+            res.status(404).send(`branch code ${codeToDelete} not found`);
+        }
+    } catch (error) {
+        // Handle any errors that occur during the deletion process
+        console.error('Error deleting branch code:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+// Route to handle saving data
+app.post("/branchsaveData", (req, res) => {
+    const { code, name } = req.body;
+    // Code to save data to the databasect the user or send a response
+    if (!code) {
+        return res.status(400).send("Code field is required");
+    }
+
+    // Insert data into the database
+    const query = "INSERT INTO branchCodes (code, name) VALUES (?, ?)";
+    connection.query(query, [code, name], (error, results) => {
+        if (error) {
+            console.error('Error saving data:', error);
+            res.status(500).send("Error saving data");
+            return;
+        }
+        console.log('Data saved successfully');
+        res.redirect("/Home/branchMast");
+    
+    });
+});
 // Modify
 app.get("/Home/castMaster/castModify",(req,res)=>{
     const currentDate = new Date();
@@ -113,7 +329,7 @@ app.get("/Home/castMaster/castModify",(req,res)=>{
     res.render("payrolls/castModify",{formattedDate,username,castCodes});
 })
 // Employee Information
-app.get("/employeeInfo",(req,res)=>{
+app.get("/Home/employeeInfo",(req,res)=>{
     const currentDate = new Date();
     const formattedDate = formatDate(currentDate);
     const {username} = req.body;

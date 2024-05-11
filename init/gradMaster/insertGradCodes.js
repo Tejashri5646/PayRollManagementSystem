@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-const createCastTable = () =>{
+const createGradeTable = () =>{
     const connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
@@ -8,7 +8,7 @@ const createCastTable = () =>{
     });
 
     const createTableSQL = `
-        CREATE TABLE IF NOT EXISTS castCodes (
+        CREATE TABLE IF NOT EXISTS gradCodes (
             code INT NOT NULL,
             name VARCHAR(255) NOT NULL
         )
@@ -24,22 +24,22 @@ const createCastTable = () =>{
     });
 }
 
-const cast_codes = require('./castcodes');
+const grade_codes = require('./gradcodes');
 
   // SQL query to insert data into the table
   const insertquery = (connection) => {
     // SQL query to insert data into the table
-    const remove = 'truncate table castCodes';
+    const remove = 'truncate table gradCodes';
     connection.query(remove,(err,results) => {
         if (err) {
             console.error('Error inserting data into the table:', err);
             return;
         }
     })
-    const sql = 'INSERT INTO castCodes (code, name) VALUES ?';
+    const sql = 'INSERT INTO gradCodes (code, name) VALUES ?';
 
     // Data to be inserted
-    const values = cast_codes.map(cast => [cast.code, cast.name]);
+    const values = grade_codes.map(grade => [grade.code, grade.name]);
 
     // Execute the query
     connection.query(sql, [values], (err, results) => {
@@ -47,12 +47,8 @@ const cast_codes = require('./castcodes');
             console.error('Error inserting data into the table:', err);
             return;
         }
-        
-        
-        
-        // Close the connection
-        // connection.end(); // You may or may not close the connection here depending on your use case
-    });
+       
+        });
 };
 
-module.exports = {createCastTable};
+module.exports = {createGradeTable};

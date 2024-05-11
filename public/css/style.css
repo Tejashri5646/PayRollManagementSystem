@@ -543,3 +543,48 @@ form button{
 .selectA{
     margin-left: -10rem;
 }
+/* Grade Master */
+.grad-master{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.grad-container{
+    margin: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grad-container input{
+    height: 1.35rem;
+    border-radius: 0.01rem;
+}
+.grad-table{
+    width: 50rem;
+    padding: 1rem;
+    margin: 0 5rem;
+}
+
+/* Section Master */
+.sect-master{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.sect-container{
+    margin: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sect-container input{
+    height: 1.35rem;
+    border-radius: 0.01rem;
+}
+.sect-table{
+    width: 50rem;
+    padding: 1rem;
+    margin: 0 5rem;
+}
