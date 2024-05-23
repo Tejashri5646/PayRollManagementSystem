@@ -5,13 +5,12 @@
             <h6>Employee Information</h6>
         </nav>
     </div>
+    <form id="saveForm" method="post" action="/empsaveData">
     <div class="search-tabs">
         <div class="employee-container">
             <label for="code" class="form-label">Employee Code: &nbsp;</label>
             <input type="text" id="code" name="username" placeholder="Enter Code" required> &nbsp;
-            <button type="button" class="search-btn btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-              </svg></button>
+            
         </div>
 
         <div class=" employee-container emp-name">
@@ -55,24 +54,18 @@
             <div class="general-container grade-code">
               <label for="code">Grade Code: &nbsp;</label>
               <input type="text" id="code" name="username" placeholder="Enter Code" required>
-              <button type="button" class="search-btn btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-              </svg></button>
+              
           </div>
   
           <div class="general-container section-code">
               <label for="name">Section Code: &nbsp;</label>
               <input type="text" id="name" name="name" placeholder="Enter Name" required>
-              <button type="button" class="search-btn btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-              </svg></button>
+              
           </div>
           <div class="general-container branch-code">
             <label for="name">Branch Code: &nbsp;</label>
             <input type="text" id="name" name="name" placeholder="Enter Name" required>
-           <button type="button" class="search-btn btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-              </svg></button>
+           
         </div>
         <div class="general-container joining-date">
             <label for="date">Joining Date: &nbsp;</label>
@@ -95,7 +88,7 @@
                         Do not cut P.T. deduction
                       </label>
                       
-                       
+                        
                    
                     </div>
                    
@@ -112,7 +105,7 @@
             
            <div class="col first-other">
             <div class="other-container education">
-              <label for="education">Highest Grade: &nbsp;</label>
+              <label for="education">Highest Qualification: &nbsp;</label>
               <input type="text" id="code" name="education" required>
               
            </div>
@@ -168,7 +161,7 @@
            </div>
   
           <div class="address-container permanent">
-              <label for="Premanent ">Permanent Address: &nbsp;</label>
+              <label for="Permanent address">Permanent Address: &nbsp;</label>
               <div class="input-group">
                 <textarea class="form-control" aria-label="With textarea" required></textarea>
               </div>
@@ -190,12 +183,12 @@
                </div>
       
               <div class="personal-container blood-grp">
-                  <label for="Premanent ">Blood Group: &nbsp;</label>
+                  <label for="blood-group">Blood Group: &nbsp;</label>
                   <input type="text" id="name" name="name" required>
 
               </div>
               <div class="personal-container mothertongue">
-                <label for="mothertongue">Mothertongue : &nbsp;</label>
+                <label for="mothertongue">Mother tongue: &nbsp;</label>
                 <input type="text" id="name" name="name" required>
                 
              </div>
@@ -211,18 +204,12 @@
            <!-- Button Groups -->
         <div class="btn-grps-info">
         <div class="btn-grp-open">
-            <a href="http://localhost:8080/Home/employeeInfo/new" class="btn btn-sm">New</a>
+            <button type="submit" class="btn btn-sm">Save</button>
         </div>
         <div class="btn-grp-open">
-            <a href="" class="btn btn-sm">Modify</a>
-        </div>
-        
-        <div class="btn-grp-open">
-            <a href="http://localhost:8080/Home/employeeInfo/view" class="btn btn-sm">View</a>
-        </div>
-        <div class="btn-grp-open">
-            <a href="http://localhost:8080/Home" class="btn btn-sm">Exit</a>
+            <a href="http://localhost:8080/Home/employeeInfo" class="btn btn-sm">Exit</a>
         </div>
 
         </div>
+      </form>
 </body>

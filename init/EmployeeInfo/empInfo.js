@@ -1,29 +1,3 @@
-// const employee_info = [
-// 	{
-// 		eCode:1, 
-// 		eName:"",
-//         Type:"",   //Clerk and all employee types needed in a bank
-//         gradCode:1,//Range is from 1 to 5
-//         sectCode:5,  //Range is from 1 to 5
-//         branchCode:1, //Range is from 1 to 5
-//         joiningDate:"", //Joining date
-//         permDate:"",  //dATE OF Promotion
-//         basic:20000,
-//         ptDed:"",  //Includes yes or no
-//         corrAddress:"", //Temporary address
-//         permAddress:"", //pERMANENT address
-//         FatherName:"", 
-//         FAddress:"",//fATHER'S ADDRESS
-//         Caste:"",
-//         Gender:"" ,
-//         bDay:"", 
-//         IdentityMark:"", 
-//         KnownLang:"", //known languages
-//         Education:"",  
-//         BloodGrp:"", 
-//         Mothertongue:""  //Native Language
-// 	}
-// ]
 
 const employee_info = [
     {

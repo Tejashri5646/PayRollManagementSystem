@@ -9,7 +9,7 @@ async function fetchEmpInfo() {
             database: 'payroll'
         });
 
-        const sql = 'SELECT * FROM employeeInfo';
+        const sql = 'SELECT eCode, eName FROM employeeInfo';
         const [rows] = await connection.execute(sql);
         await connection.end();
 

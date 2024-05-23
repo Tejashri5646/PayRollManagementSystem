@@ -19,11 +19,18 @@ const deleteSectCode = require("./init/sectMaster/deleteSectCodes");
 const fetchBranchCodes = require("./init/branchMaster/fetchBranchCodes");
 const deleteBranchCode = require("./init/branchMaster/deleteBranchCodes");
 // const castCode = require("./init/castcodes");
+const insertEmpInfo = require("./init/EmployeeInfo/insertEmpInfo");
+const fetchEmpInfo = require("./init/EmployeeInfo/fetchEmpInfo");
+const deleteEmpInfo = require("./init/EmployeeInfo/deleteEmpInfo");
+
+
 const { createConnection } = require("net");
 const {createCastTable} = require("./init/castCode/insertCastCode");
 const {createGradeTable} = require("./init/gradMaster/insertGradCodes");
 const {createSectTable} = require("./init/sectMaster/insertSectCodes");
 const {createBranchTable} = require("./init/branchMaster/insertBranchCodes");
+const {createEmpInfoTable} = require("./init/EmployeeInfo/insertEmpInfo");
+
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
@@ -42,6 +49,7 @@ const createConnectionAndTable = () => {
     createGradeTable();
     createSectTable();
     createBranchTable();
+    createEmpInfoTable();
     return connection;
 };
 const connection = createConnectionAndTable();
@@ -335,6 +343,71 @@ app.get("/Home/employeeInfo",(req,res)=>{
     const {username} = req.body;
     res.render("payrolls/employeeInfo",{formattedDate,username});
 });
+app.get("/Home/employeeInfo/view", async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
+        const username = req.query.username;
+
+        // Fetch employee information asynchronously
+        const employeeInfo = await fetchEmpInfo();
+
+        // Render the template with the retrieved employee information
+        
+        res.render("payrolls/employeeInfo/view.ejs", { formattedDate, username, employeeInfo });
+    } catch (err) {
+        // Handle errors
+        console.error('Error in /Home/employeeInfo:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.delete("/Home/employeeInfo/:id", async (req, res) => {
+    try {
+        const eCodeToDelete = req.params.id;
+
+        // Delete the employee information from the database
+        const affectedRows = await deleteEmpInfo(eCodeToDelete);
+
+        // If the employee information was deleted from the database, respond with success
+        if (affectedRows > 0) {
+            res.redirect('http://localhost:8080/Home/employeeInfo');
+        } else {
+            // If the employee information was not found in the database, respond with error
+            res.status(404).send(`Employee with code ${eCodeToDelete} not found`);
+        }
+    } catch (error) {
+        // Handle any errors that occur during the deletion process
+        console.error('Error deleting employee information:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.get('/Home/employeeInfo/new',(req,res)=>{
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    const {username} = req.body;
+    res.render("payrolls/employeeInfo/newEmployeeInfo",{formattedDate,username});
+});
+app.post("/empsaveData", (req, res) => {
+    const { eCode, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed, corrAddress, permAddress, FatherName, FAddress, Caste, Gender, bDay, IdentityMark, KnownLang, Education, BloodGrp, Mothertongue } = req.body;
+    
+    // Code to save employee information to the database
+    if (!eCode || !eName || !Type) {
+        return res.status(400).send("Employee code, name, and type are required");
+    }
+
+    // Insert data into the database
+    const query = "INSERT INTO employeeInfo (eCode, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed, corrAddress, permAddress, FatherName, FAddress, Caste, Gender, bDay, IdentityMark, KnownLang, Education, BloodGrp, Mothertongue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    connection.query(query, [eCode, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed, corrAddress, permAddress, FatherName, FAddress, Caste, Gender, bDay, IdentityMark, KnownLang, Education, BloodGrp, Mothertongue], (error, results) => {
+        if (error) {
+            console.error('Error saving employee data:', error);
+            res.status(500).send("Error saving employee data");
+            return;
+        }
+        console.log('Employee data saved successfully');
+        res.redirect("/Home/employeeInfo");
+    });
+});
+
 app.get("/payCorrection",(req,res)=>{
     const currentDate = new Date();
     const formattedDate = formatDate(currentDate);
