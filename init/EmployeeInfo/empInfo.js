@@ -226,7 +226,7 @@ const employee_info = [
         joiningDate: "2024-03-05",
         permDate: "2024-11-10",
         basic: 32000,
-        ptDed: "No",
+        ptDed: "On",
         corrAddress: "123 Main St, Cityville",
         permAddress: "456 Elm St, Townsville",
         FatherName: "Juan Martinez",

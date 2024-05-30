@@ -42,9 +42,9 @@ function readCodeFor(field, config, options, fieldNum) {
     case Types.TIMESTAMP:
     case Types.NEWDATE:
       if (helpers.typeMatch(field.columnType, dateStrings, Types)) {
-        return `packet.readDateTimeString(${field.decimals});`;
+        return `packet.readDateTimeString(${parseInt(field.decimals, 10)});`;
       }
-      return `packet.readDateTime('${timezone}');`;
+      return `packet.readDateTime(${helpers.srcEscape(timezone)});`;
     case Types.TIME:
       return 'packet.readTimeString()';
     case Types.DECIMAL:
@@ -145,22 +145,14 @@ function compile(fields, options, config) {
   let tableName = '';
 
   for (let i = 0; i < fields.length; i++) {
-    fieldName = helpers.srcEscape(fields[i].name);
-
-    if (helpers.privateObjectProps.has(fields[i].name)) {
-      throw new Error(
-        `The field name (${fieldName}) can't be the same as an object's private property.`,
-      );
-    }
-
-    parserFn(`// ${fieldName}: ${typeNames[fields[i].columnType]}`);
+    fieldName = helpers.fieldEscape(fields[i].name);
+    // parserFn(`// ${fieldName}: ${typeNames[fields[i].columnType]}`);
 
     if (typeof options.nestTables === 'string') {
-      lvalue = `result[${helpers.srcEscape(
-        fields[i].table + options.nestTables + fields[i].name,
-      )}]`;
+      lvalue = `result[${helpers.fieldEscape(fields[i].table + options.nestTables + fields[i].name)}]`;
     } else if (options.nestTables === true) {
-      tableName = helpers.srcEscape(fields[i].table);
+      tableName = helpers.fieldEscape(fields[i].table);
+
       parserFn(`if (!result[${tableName}]) result[${tableName}] = {};`);
       lvalue = `result[${tableName}][${fieldName}]`;
     } else if (options.rowsAsArray) {
@@ -189,7 +181,6 @@ function compile(fields, options, config) {
       }
     }
     parserFn('}');
-
 
     currentFieldNullBit *= 2;
     if (currentFieldNullBit === 0x100) {
