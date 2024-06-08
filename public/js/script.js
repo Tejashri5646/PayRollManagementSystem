@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
     exitButton.addEventListener("click", function(event) {
         event.preventDefault(); // Prevent the default behavior of the button (e.g., form submission)
         // Redirect the user to the home page
-        window.location.href = "http://localhost:8080/Home?username=<%= username %>"; // Replace with the URL of your home page
+        window.location.href = "http://localhost:8080/Home"; // Replace with the URL of your home page
     });
 
     // Event listeners for delete buttons in the table
@@ -181,4 +181,23 @@ document.addEventListener("DOMContentLoaded", function() {
         format: 'yyyy-mm-dd', // You can change the date format as per your requirement
         autoclose: true
     });
+});
+// General function to validate input against a given regex
+function validateName() {
+    const nameInput = document.getElementById('name');
+    const nameValue = nameInput.value;
+    const regex = /^[a-zA-Z\s]+$/; // Regular expression to match only letters and spaces
+
+    if (!regex.test(nameValue)) {
+        alert('Invalid name. Only letters and spaces are allowed.');
+        return false;
+    }
+    return true;
+}
+
+// Attach the validateName function to the form's submit event
+document.getElementById('saveForm').addEventListener('submit', function(event) {
+    if (!validateName()) {
+        event.preventDefault(); // Prevent form submission if validation fails
+    }
 });

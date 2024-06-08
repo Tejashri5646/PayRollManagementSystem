@@ -15,12 +15,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(const { eCode, eName } of employeeInfo) { %>
+                            <% for(const { code, eName } of employeeInfo) { %>
                                 <tr>
-                                    <td><%= eCode %></td>
+                                    <td><%= code %></td>
                                     <td><%= eName %></td>
+                                    <td><a href="http://localhost:8080/Home/employeeInfo/<%= code %>/employeeInfoModify">Modify</a></td>
                                     <td>
-                                        <form method="post" action="http://localhost:8080/Home/employeeInfo/<%= eCode %>?_method=DELETE">
+                                        <form method="post" action="http://localhost:8080/Home/employeeInfo/<%= code %>?_method=DELETE">
                                             <button class="btn">Delete</button>
                                         </form>
                                     </td>
@@ -28,8 +29,13 @@
                             <% } %>
                         </tbody>
                     </table>
+                    <div class="btn-grp-open">
+                        <a class="btn btn-sm" href="/Home/employeeInfo/export/pdf">Export to PDF</a>
+                    <a class="btn btn-sm" href="/Home/employeeInfo/export/excel">Export to Excel</a>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </body>

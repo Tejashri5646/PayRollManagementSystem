@@ -14,7 +14,7 @@ const createEmpInfoTable = async () => {
         // Create the employeeInfo table if it doesn't exist
         const createTableSQL = `
             CREATE TABLE IF NOT EXISTS employeeInfo (
-                eCode INT NOT NULL,
+                code INT NOT NULL,
                 eName VARCHAR(255) NOT NULL,
                 Type VARCHAR(255) NOT NULL,
                 gradCode INT NOT NULL,
@@ -35,7 +35,7 @@ const createEmpInfoTable = async () => {
                 Education VARCHAR(255) NOT NULL,
                 BloodGrp VARCHAR(255) NOT NULL,
                 Mothertongue VARCHAR(255) NOT NULL,
-                PRIMARY KEY (eCode)
+                PRIMARY KEY (code)
             )
         `;
         await connection.execute(createTableSQL);
@@ -47,7 +47,7 @@ const createEmpInfoTable = async () => {
         // Prepare the insert query
         const insertQuery = `
             INSERT INTO employeeInfo (
-                eCode, eName, Type, gradCode, sectCode, branchCode, joiningDate,
+                code, eName, Type, gradCode, sectCode, branchCode, joiningDate,
                 permDate, basic, ptDed, corrAddress, permAddress, FatherName, 
                 Caste, Gender, bDay, IdentityMark, KnownLang, Education, BloodGrp, Mothertongue
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -56,7 +56,7 @@ const createEmpInfoTable = async () => {
         // Insert data into the table
         for (const employee of employee_info) {
             await connection.execute(insertQuery, [
-                employee.eCode, employee.eName, employee.Type, employee.gradCode, employee.sectCode,
+                employee.code, employee.eName, employee.Type, employee.gradCode, employee.sectCode,
                 employee.branchCode, employee.joiningDate, employee.permDate, employee.basic,
                 employee.ptDed ? 1 : 0, employee.corrAddress, employee.permAddress,
                 employee.FatherName, employee.Caste, employee.Gender,

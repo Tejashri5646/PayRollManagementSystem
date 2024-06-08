@@ -1,5 +1,10 @@
 <% layout('./layouts/boilerplate') %>
 <body>
+    <div class="home">
+        <nav>
+            <h6>Caste Master</h6>
+        </nav>
+    </div>
     <div class="cast-master">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -11,9 +16,6 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="home-tab">
-                <div class="open-title">
-                    <h6>Cast Master</h6>
-                </div>
                 <form id="saveForm" method="post" action="/saveData">
                     <div class="code-container">
                         <label for="code">Code: &nbsp;</label>
@@ -46,7 +48,7 @@
                                 <tr>
                                     <th scope="row"><%= code %></th>
                                     <td><%= castCodes[code] %></td>
-                                    <td><a href="http://localhost:8080/Home/castMaster/castModify">Modify</a></td>
+                                    <td><a href="http://localhost:8080/Home/castMaster/<%= code %>/castModify">Modify</a></td>
                                     <td>
                                         <form method="post" action="http://localhost:8080/Home/castMaster/<%= code %>?_method=DELETE">
                                             <button class="btn delete-btn" data-id="<%= code %>">Delete</button>
@@ -60,5 +62,4 @@
             </div>
         </div>
     </div>
-   
 </body>

@@ -9,7 +9,7 @@ const createGradeTable = () =>{
 
     const createTableSQL = `
         CREATE TABLE IF NOT EXISTS gradCodes (
-            code INT NOT NULL,
+            code INT NOT NULL PRIMARY KEY,
             name VARCHAR(255) NOT NULL
         )
     `;

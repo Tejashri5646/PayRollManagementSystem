@@ -121,13 +121,16 @@ nav a {
     padding: 4px;
     background-color: #b7b3ffdb;
     margin:0px 0.1rem 0px 0.1rem;
-    height: 1.5rem;
-    width:100rem;
+    height: 2.5rem;
+    width:auto;
+    margin: 4px;
 
 }
 h6
 {
     text-align: center;
+    text-decoration: solid;
+    font-weight: bold;
 }
 footer { 
     background-color: white;
@@ -593,7 +596,11 @@ form button{
 .btn-grp-open a{
     background-color: #857efc;
     margin: 0.2rem;
-    width: 4rem;
+    width: auto;
     color: #fff;
     font-weight: 500;
+    margin-bottom: 4rem;
+}
+a{
+    bottom: 25rem !important;
 }

@@ -1,7 +1,7 @@
 
 const employee_info = [
     {
-        eCode: 1,
+        code: 1,
         eName: "John Smith",
         Type: "Clerk",
         gradCode: 3,
@@ -25,7 +25,7 @@ const employee_info = [
         Mothertongue: "English"
     },
     {
-        eCode: 2,
+        code: 2,
         eName: "Emily Johnson",
         Type: "Manager",
         gradCode: 5,
@@ -49,7 +49,7 @@ const employee_info = [
         Mothertongue: "English"
     },
     {
-        eCode: 3,
+        code: 3,
         eName: "Michael Lee",
         Type: "Assistant Manager",
         gradCode: 4,
@@ -73,7 +73,7 @@ const employee_info = [
         Mothertongue: "English"
     },
     {
-        eCode: 4,
+        code: 4,
         eName: "Sarah Williams",
         Type: "Clerk",
         gradCode: 2,
@@ -97,7 +97,7 @@ const employee_info = [
         Mothertongue: "English"
     },
     {
-        eCode: 5,
+        code: 5,
         eName: "David Brown",
         Type: "Manager",
         gradCode: 5,
@@ -121,7 +121,7 @@ const employee_info = [
         Mothertongue: "English"
     },
     {
-        eCode: 6,
+        code: 6,
         eName: "Jennifer Martinez",
         Type: "Clerk",
         gradCode: 3,
@@ -145,7 +145,7 @@ const employee_info = [
         Mothertongue: "Spanish"
     },
     {
-        eCode: 7,
+        code: 7,
         eName: "Daniel Taylor",
         Type: "Assistant Manager",
         gradCode: 4,
@@ -169,7 +169,7 @@ const employee_info = [
         Mothertongue: "English"
     },
     {
-        eCode: 8,
+        code: 8,
         eName: "Jessica Garcia",
         Type: "Manager",
         gradCode: 5,
@@ -193,7 +193,7 @@ const employee_info = [
         Mothertongue: "Spanish"
     },
     {
-        eCode: 9,
+        code: 9,
         eName: "Ryan Rodriguez",
         Type: "Clerk",
         gradCode: 2,
@@ -217,7 +217,7 @@ const employee_info = [
         Mothertongue: "English"
     },
     {
-        eCode: 10,
+        code: 10,
         eName: "Amanda Martinez",
         Type: "Assistant Manager",
         gradCode: 3,

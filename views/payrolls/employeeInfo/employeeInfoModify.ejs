@@ -1,0 +1,179 @@
+
+<% layout('./layouts/boilerplate') %>
+<body>
+    <div class="home">
+        <nav>
+            <h6>Employee Information</h6>
+        </nav>
+    </div>
+    <form id="saveForm" method="post" action="/updateEmployeeData">
+        <div class="search-tabs">
+            <div class="employee-container">
+                <label for="code" class="form-label">Employee Code: &nbsp;</label>
+                <input type="text" id="code" name="code" value="<%= employeeInfo[0].code %>" placeholder="Enter Code" required> &nbsp;
+            </div>
+
+            <div class="employee-container emp-name">
+                <label for="name" class="form-label">Employee Name: &nbsp;</label>
+                <input type="text" id="name" name="eName" value="<%= employeeInfo[0].eName %>" placeholder="Enter Name" required>
+            </div>
+            <div class="employee-container emp-dropdown">
+                <label for="name" class="form-label">Type: &nbsp;</label>
+                <div class="dropdown">
+                    <select name="Type" id="" class="type-dropdown">
+                        <option value="permanent" class="active" <%= employeeInfo[0].Type === 'permanent' ? 'selected' : '' %>>Permanent</option>
+                        <option value="temporary" <%= employeeInfo[0].Type === 'temporary' ? 'selected' : '' %>>Temporary</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="cast-master">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item " role="presentation">
+                    <button onclick="openTab(event, 'tab1')" class="tab-btn nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">General Information</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button onclick="openTab(event, 'tab2')" class="nav-link tab-btn" id="personal-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="profile" aria-selected="false">Other Information</button>
+                </li>
+                <li class="nav-item " role="presentation">
+                    <button onclick="openTab(event, 'tab3')" class="tab-btn nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#tab3" type="button" role="tab" aria-controls="home" aria-selected="true">Address Information</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button onclick="openTab(event, 'tab4')" class="nav-link tab-btn" id="other-tab" data-bs-toggle="tab" data-bs-target="#tab4" type="button" role="tab" aria-controls="profile" aria-selected="false">Personal Information</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane general-tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="general-tab">
+                  <div class="general-container grade-code">
+                    <label for="gradCode">Grade Code: &nbsp;</label>
+                    <select id="gradCode" name="gradCode">
+                        <% for(const [code, name] of Object.entries(gradCodes)){ %>
+                            <option value="<%= code %>" <%= employeeInfo[0].gradCode === code ? 'selected' : '' %>><%= code %></option>
+                        <% } %>
+                    </select>
+                </div>
+                
+                <div class="general-container section-code">
+                  <label for="sectCode">Section Code: &nbsp;</label>
+                  <select id="sectCode" name="sectCode">
+                      <% for(const [code, name] of Object.entries(sectCodes)){ %>
+                          <option value="<%= code %>" <%= employeeInfo[0].sectCode === code ? 'selected' : '' %>><%= code %></option>
+                      <% } %>
+                  </select>
+              </div>
+              
+              <div class="general-container branch-code">
+                <label for="branchCode">Branch Code: &nbsp;</label>
+                <select id="branchCode" name="branchCode">
+                    <option <%= employeeInfo[0].branchCode %>><%= employeeInfo[0].branchCode %></option>
+                </select>
+            </div>
+            
+                    <div class="general-container joining-date">
+                        <label for="joiningDate">Joining Date: &nbsp;</label>
+                        <input type="date" id="joiningDate" name="joiningDate" value="<%= employeeInfo[0].joiningDate %>" required>
+                        <label for="basic">Basic: &nbsp;</label>
+                        <input type="text" id="basic" name="basic" value="<%= employeeInfo[0].basic %>" placeholder="Enter Basic" required>
+                    </div>
+                    <div class="general-container permanent-date">
+                        <label for="permDate">Permanent Date: &nbsp;</label>
+                        <input type="date" id="permDate" name="permDate" value="<%= employeeInfo[0].permDate %>" required>
+                    </div>
+                    <div class="pt-next">
+                        <div class="general-container pt-check">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ptDed" name="ptDed" <%= employeeInfo[0].ptDed ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="ptDed">
+                                        Do not cut P.T. deduction
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Other Information -->
+            <div class="tab-content">
+                <div class="main-other-container row tab-pane other-tab-pane fade show" id="tab2" role="tabpanel" aria-labelledby="other-tab">
+                    <div class="col first-other">
+                        <div class="other-container education">
+                            <label for="Education">Highest Qualification: &nbsp;</label>
+                            <input type="text" id="education" name="Education" value="<%= employeeInfo[0].Education %>" required>
+                        </div>
+                        <div class="other-container institute">
+                            <label for="Institute">Institute Name: &nbsp;</label>
+                            <input type="text" id="institute" name="Institute" value="<%= employeeInfo[0].Institute %>" required>
+                        </div>
+                    </div>
+                    <div class="col second-other-container">
+                        <div class="other-container language">
+                            <label for="KnownLang">Languages known: &nbsp;</label>
+                            <input type="text" id="language" name="KnownLang" value="<%= employeeInfo[0].KnownLang %>" required>
+                        </div>
+                        <div class="other-container gender">
+                            <label for="Gender">Gender: &nbsp;</label>
+                            <input type="text" id="gender" name="Gender" value="<%= employeeInfo[0].Gender %>" required>
+                        </div>
+                    </div>
+                    <div class="third-other-container">
+                        <div class="other-container caste">
+                            <label for="Caste">Caste: &nbsp;</label>
+                            <input type="text" id="caste" name="Caste" value="<%= employeeInfo[0].Caste %>" required>
+                        </div>
+                        <div class="other-container fathername">
+                            <label for="FatherName">Father's Name: &nbsp;</label>
+                            <input type="text" id="fathername" name="FatherName" value="<%= employeeInfo[0].FatherName %>" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Address Information -->
+            <div class="tab-content">
+                <div class="main-address-container row tab-pane other-tab-pane fade show" id="tab3" role="tabpanel" aria-labelledby="address-tab">
+                    <div class="address-container corr">
+                        <label for="corrAddress">Correspondence Address: &nbsp;</label>
+                        <div class="input-group">
+                            <textarea class="form-control" id="corrAddress" name="corrAddress" aria-label="With textarea" required><%= employeeInfo[0].corrAddress %></textarea>
+                        </div>
+                    </div>
+                    <div class="address-container permanent">
+                        <label for="permAddress">Permanent Address: &nbsp;</label>
+                        <div class="input-group">
+                            <textarea class="form-control" id="permAddress" name="permAddress" aria-label="With textarea" required><%= employeeInfo[0].permAddress %></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Personal Information -->
+            <div class="tab-content">
+                <div class="main-personal-container row tab-pane other-tab-pane fade show" id="tab4" role="tabpanel" aria-labelledby="other-tab">
+                    <div class="personal-container birthdate">
+                        <label for="bDay">Birthdate: &nbsp;</label>
+                        <input type="date" id="bDay" name="bDay" value="<%= employeeInfo[0].bDay %>" required>
+                    </div>
+                    <div class="personal-container blood-grp">
+                        <label for="BloodGrp">Blood Group: &nbsp;</label>
+                        <input type="text" id="bloodgrp" name="BloodGrp" value="<%= employeeInfo[0].BloodGrp %>" required>
+                    </div>
+                    <div class="personal-container mothertongue">
+                        <label for="Mothertongue">Mother tongue: &nbsp;</label>
+                        <input type="text" id="mothertongue" name="Mothertongue" value="<%= employeeInfo[0].Mothertongue %>" required>
+                    </div>
+                    <div class="personal-container imark">
+                        <label for="IdentityMark">Identification mark: &nbsp;</label>
+                        <input type="text" id="imark" name="IdentityMark" value="<%= employeeInfo[0].IdentityMark %>" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Button Groups -->
+            <div class="btn-grps-info">
+                <div class="btn-grp-open">
+                    <button type="submit" class="btn btn-sm">Save</button>
+                    <button type="button" id="cancelbtn" class="btn btn-sm">Cancel</button>
+                    <button id="exitButton" class="btn btn-sm">Exit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>

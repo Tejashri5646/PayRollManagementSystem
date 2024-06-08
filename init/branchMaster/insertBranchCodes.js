@@ -9,7 +9,7 @@ const createBranchTable = () =>{
 
     const createTableSQL = `
         CREATE TABLE IF NOT EXISTS branchCodes (
-            code INT NOT NULL,
+            code INT NOT NULL primary key,
             name VARCHAR(255) NOT NULL
         )
     `;
@@ -29,7 +29,7 @@ const branch_codes = require('./branchCodes');
   // SQL query to insert data into the table
   const insertquery = (connection) => {
     // SQL query to insert data into the table
-    const remove = 'truncate table sectCodes';
+    const remove = 'truncate table branchCodes';
     connection.query(remove,(err,results) => {
         if (err) {
             console.error('Error inserting data into the table:', err);

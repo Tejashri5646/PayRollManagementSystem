@@ -1,0 +1,71 @@
+
+<% layout('./layouts/boilerplate') %>
+<body>
+  <div class="home">
+    <nav>
+        <h6>Grade Master</h6>
+    </nav>
+</div>
+    <div class="grad-master">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item " role="presentation">
+          <button onclick="openTab(event, 'tab1')" class="tab-btn nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#tab1" type="button" role="tab" aria-controls="home" aria-selected="true">Add new</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button onclick="openTab(event, 'tab2')" class="nav-link tab-btn " id="profile-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab" aria-controls="profile" aria-selected="false">Open Existing</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="home-tab">
+          
+          <form id="saveForm" method="post" action="/gradsaveData">
+          <div class="grad-container">
+            <label for="code">Code: &nbsp;</label>
+            <input type="text" id="code" name="code" value="<%= nextCode %>" readonly>
+        </div>
+
+        <div class="grad-container">
+            <label for="name">Name: &nbsp;</label>
+            <input type="text" id="name" name="name" placeholder="Enter Name" required>
+        </div>
+        <div class="btn-grp-open">
+          <button type="submit" class="btn btn-sm">Save</button>
+          <button type="button" onclick="cancel" id="cancelbtn" class="btn btn-sm" >Cancel</button>
+          <button id="exitButton" class="btn btn-sm">Exit</button>
+        </div>
+      </form>
+        </div>
+     
+        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="grad-table">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr class="table-header">
+                <th scope="col">Code</th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(const [code, name] of Object.entries(gradCodes)){ %>
+                  <tr>
+                      <th scope="row"><%= code %></th>
+                      <td><%= gradCodes[code] %></td>
+                      <td><a href="http://localhost:8080/Home/gradMaster/<%= code %>/gradModify">Modify</a></td>
+                      <td>
+                          <form method="post" action="http://localhost:8080/Home/gradMaster/<%= code %>?_method=DELETE">
+                              <button class="btn">Delete</button>
+                          </form>
+                      </td>
+                  </tr>
+              <% } %>
+          </tbody>
+          </table>
+        </div>
+        </div>
+        
+      </div>
+      
+    </div>
+</body>

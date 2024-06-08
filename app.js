@@ -4,6 +4,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 app.engine('ejs',ejsMate);
+const fetchDetails = require('./utils/fetchDetails');
 const mysql = require('mysql2');
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -12,6 +13,7 @@ const bodyParser = require('body-parser');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const createUsersTableAndInsertUsers = require('./init/user');
+const { generatePDF, generateExcel } = require('./utils/exportUtils');
 
 const insertCastCodes = require("./init/castCode/insertCastCode");
 const fetchCastCodes = require('./init/castCode/fetchCastCodes');
@@ -87,7 +89,10 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
 // User model
 const User = {
     findOne: (username, callback) => {
@@ -203,7 +208,7 @@ app.get("/Home/castMaster", async (req, res) => {
         ]);
 
         // Render the template with the retrieved cast codes and next code
-        res.render("payrolls/castMaster.ejs", { formattedDate, username, castCodes, nextCode });
+        res.render("payrolls/castMaster.ejs", { formattedDate, username, castCodes, nextCode ,currentUser: req.user});
     } catch (err) {
         // Handle errors
         console.error('Error in /Home/castMaster:', err);
@@ -231,6 +236,40 @@ app.delete("/Home/castMaster/:id", async (req, res) => {
     }
 });
 
+// Route handler using fetchDetails
+app.get("/Home/castMaster/:id/castModify", async (req, res) => {
+    try {
+        const code = req.params.id;
+        console.log(`Fetching details for code: ${code}`);
+        const castCode = await fetchDetails('castCodes', code);
+        
+        const currentDate = new Date();
+        const formattedDate = currentDate.toISOString().split('T')[0];
+        const { username } = req.query;
+
+        res.render("payrolls/castModify.ejs", { castCode, username, formattedDate });
+    } catch (err) {
+        console.error('Error in /Home/castMaster/castModify:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.post('/updateData', async (req, res) => {
+    const { code, name } = req.body;
+  
+    // Check if the name already exists (optional, can be removed if not needed)
+    // ... (existing code for checking name)
+  
+    // Update the data
+    const updateQuery = 'UPDATE castCodes SET name = ? WHERE code = ?';
+    connection.query(updateQuery, [name, code], (err, results) => {
+      if (err) {
+        console.error('Error updating data:', err);
+        return res.status(500).send('Error updating data');
+      }
+      res.redirect("/Home/castMaster"); // Redirect to the desired page after update
+    });
+  });
+  
 // Route to handle saving data
 app.post('/saveData', async (req, res) => {
     const { code, name } = req.body;
@@ -264,6 +303,24 @@ app.post('/saveData', async (req, res) => {
 
 // Grade Master (e.g., using a MongoDB or SQL query)
     // Once saved, you can redire
+app.get("/Home/gradMaster/:id/gradModify", async (req, res) => {
+        try {
+            const code = req.params.id;
+            console.log(`Fetching details for grad code: ${code}`);
+    
+            // Fetch details of the grade asynchronously
+            const gradCode = await fetchDetails('gradCodes', code);
+    
+            const currentDate = new Date();
+            const formattedDate = formatDate(currentDate);
+            const { username } = req.query;
+    
+            res.render("payrolls/grad/gradModify.ejs", { gradCode, username, formattedDate });
+        } catch (err) {
+            console.error('Error in /Home/gradMaster/:id/gradModify:', err);
+            res.status(500).send('Internal Server Error');
+        }
+    });
 app.get("/Home/gradMaster",async (req,res)=>{
     try {
         const currentDate = new Date();
@@ -276,7 +333,7 @@ app.get("/Home/gradMaster",async (req,res)=>{
             getNextCode(connection, 'gradCodes') // Use the utility function
         ]);
         // Render the template with the retrieved cast codes
-        res.render("payrolls/gradMast.ejs", { formattedDate, username, gradCodes,nextCode });
+        res.render("payrolls/grad/gradMast.ejs", { formattedDate, username, gradCodes,nextCode });
     } catch (err) {
         // Handle errors
         console.error('Error in /Home/gradMaster:', err);
@@ -332,9 +389,42 @@ app.post("/gradsaveData", (req, res) => {
         });
     });
 });
-
+app.post('/updateGradData', async (req, res) => {
+    const { code, name } = req.body;
+  
+    // Check if the name already exists (optional, can be removed if not needed)
+    // ... (existing code for checking name)
+  
+    // Update the data
+    const updateQuery = 'UPDATE gradCodes SET name = ? WHERE code = ?';
+    connection.query(updateQuery, [name, code], (err, results) => {
+      if (err) {
+        console.error('Error updating data:', err);
+        return res.status(500).send('Error updating data');
+      }
+      res.redirect("/Home/gradMaster"); // Redirect to the desired page after update
+    });
+  });
+  
 // SectionMaster
+app.get("/Home/sectMaster/:id/sectModify", async (req, res) => {
+    try {
+        const code = req.params.id;
+        console.log(`Fetching details for sect code: ${code}`);
 
+        // Fetch details of the section asynchronously
+        const sectCode = await fetchDetails('sectCodes', code);
+
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
+        const { username } = req.query;
+
+        res.render("payrolls/sect/sectModify.ejs", { sectCode, username, formattedDate });
+    } catch (err) {
+        console.error('Error in /Home/sectMaster/:id/sectModify:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
 app.get("/Home/sectMaster",async (req,res)=>{
     try {
         const currentDate = new Date();
@@ -348,7 +438,7 @@ app.get("/Home/sectMaster",async (req,res)=>{
         ]);
 
         // Render the template with the retrieved cast codes
-        res.render("payrolls/sectMast.ejs", { formattedDate, username, sectCodes,nextCode });
+        res.render("payrolls/sect/sectMast.ejs", { formattedDate, username, sectCodes,nextCode });
     } catch (err) {
         // Handle errors
         console.error('Error in /Home/sectMaster:', err);
@@ -396,7 +486,23 @@ app.post("/sectsaveData", (req, res) => {
     
     });
 });
-
+app.post('/updateSectData', async (req, res) => {
+    const { code, name } = req.body;
+  
+    // Check if the name already exists (optional, can be removed if not needed)
+    // ... (existing code for checking name)
+  
+    // Update the data
+    const updateQuery = 'UPDATE sectCodes SET name = ? WHERE code = ?';
+    connection.query(updateQuery, [name, code], (err, results) => {
+      if (err) {
+        console.error('Error updating data:', err);
+        return res.status(500).send('Error updating data');
+      }
+      res.redirect("/Home/sectMaster"); // Redirect to the desired page after update
+    });
+  });
+  
 // Branch Master
 app.get("/Home/branchMaster",async (req,res)=>{
     try {
@@ -410,7 +516,7 @@ app.get("/Home/branchMaster",async (req,res)=>{
             getNextCode(connection, 'branchCodes') // Use the utility function
         ]);
         // Render the template with the retrieved cast codes
-        res.render("payrolls/branchMast.ejs", { formattedDate, username, branchCodes,nextCode });
+        res.render("payrolls/branch/branchMast.ejs", { formattedDate, username, branchCodes,nextCode });
     } catch (err) {
         // Handle errors
         console.error('Error in /Home/branchMaster:', err);
@@ -437,6 +543,7 @@ app.delete("/Home/branchMaster/:id", async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
 // Route to handle saving data
 app.post("/branchsaveData", (req, res) => {
     const { code, name } = req.body;
@@ -458,6 +565,44 @@ app.post("/branchsaveData", (req, res) => {
     
     });
 });
+// Route to handle updating existing data
+app.post('/updateBranchData', async (req, res) => {
+    const { code, name } = req.body;
+  
+    // Check if the name already exists (optional, can be removed if not needed)
+    // ... (existing code for checking name)
+  
+    // Update the data
+    const updateQuery = 'UPDATE branchCodes SET name = ? WHERE code = ?';
+    connection.query(updateQuery, [name, code], (err, results) => {
+      if (err) {
+        console.error('Error updating data:', err);
+        return res.status(500).send('Error updating data');
+      }
+      res.redirect("/Home/branchMaster"); // Redirect to the desired page after update
+    });
+  });
+  
+
+
+app.get("/Home/branchMaster/:id/branchModify", async (req, res) => {
+    try {
+        const code = req.params.id;
+        console.log(`Fetching details for branch code: ${code}`);
+
+        // Fetch details of the branch asynchronously
+        const branchCode = await fetchDetails('branchCodes', code);
+
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
+        const { username } = req.query;
+
+        res.render("payrolls/branch/branchModify.ejs", { branchCode, username, formattedDate });
+    } catch (err) {
+        console.error('Error in /Home/branchMaster/:id/branchModify:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
 // Modify
 app.get("/Home/castMaster/castModify",(req,res)=>{
     const currentDate = new Date();
@@ -466,6 +611,69 @@ app.get("/Home/castMaster/castModify",(req,res)=>{
     res.render("payrolls/castModify",{formattedDate,username,castCodes});
 })
 // Employee Information
+app.get("/Home/employeeInfo/:id/employeeInfoModify", async (req, res) => {
+    try {
+        const code = req.params.id;
+        console.log(`Fetching details for employee with code: ${code}`);
+
+        // Fetch details of the employee asynchronously
+        const employeeInfo = await fetchDetails('employeeInfo', code);
+
+        const currentDate = new Date();
+        const formattedDate = formatDate(currentDate);
+        const { username } = req.query;
+
+        // Fetch required codes
+        const gradCodes = await fetchGradCodes();
+        const branchCodes = await fetchBranchCodes();
+        const sectCodes = await fetchSectCodes();
+
+        res.render("payrolls/employeeInfo/employeeInfoModify.ejs", { employeeInfo, username, formattedDate, gradCodes, branchCodes, sectCodes });
+    } catch (err) {
+        console.error('Error in /Home/employeeInfo/:id/employeeInfoModify', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.post('/updateEmployeeData', (req, res) => {
+    const { code, eName, Type, gradCode, sectCode, branchCode, joiningDate, basic, permDate, ptDed, Education, Institute, KnownLang, Gender, Caste, FatherName, corrAddress, permAddress, bDay, BloodGrp, Mothertongue, IdentityMark } = req.body;
+
+    // Update the existing employee data in the database
+    const updateQuery = `UPDATE employeeInfo SET 
+        eName = ?, 
+        Type = ?, 
+        gradCode = ?, 
+        sectCode = ?, 
+        branchCode = ?, 
+        joiningDate = ?, 
+        basic = ?, 
+        permDate = ?, 
+        ptDed = ?, 
+        Education = ?, 
+        Institute = ?, 
+        KnownLang = ?, 
+        Gender = ?, 
+        Caste = ?, 
+        FatherName = ?, 
+        corrAddress = ?, 
+        permAddress = ?, 
+        bDay = ?, 
+        BloodGrp = ?, 
+        Mothertongue = ?, 
+        IdentityMark = ? 
+        WHERE code = ?`;
+
+    const ptDedValue = ptDed === 'on' ? 1 : 0;
+    const values = [eName, Type, gradCode, sectCode, branchCode, joiningDate, basic, permDate, ptDedValue, Education, Institute, KnownLang, Gender, Caste, FatherName, corrAddress, permAddress, bDay, BloodGrp, Mothertongue, IdentityMark, code];
+
+    connection.query(updateQuery, values, (err, results) => {
+        if (err) {
+            console.error('Error updating data:', err);
+            return res.status(500).send('Error updating data');
+        }
+        res.redirect('/Home/employeeInfo'); // Redirect to home or a success page
+    });
+});
+
 app.get("/Home/employeeInfo",async (req,res)=>{
     const currentDate = new Date();
     const formattedDate = formatDate(currentDate);
@@ -473,7 +681,7 @@ app.get("/Home/employeeInfo",async (req,res)=>{
     const gradCodes = await fetchGradCodes();
     const branchCodes = await fetchBranchCodes();
     const sectCodes = await fetchSectCodes();
-    res.render("payrolls/employeeInfo",{formattedDate,username,gradCodes,branchCodes,sectCodes});
+    res.render("payrolls/employeeInfo/employeeInfo",{formattedDate,username,gradCodes,branchCodes,sectCodes});
 });
 app.get("/Home/employeeInfo/view", async (req, res) => {
     try {
@@ -493,6 +701,30 @@ app.get("/Home/employeeInfo/view", async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+// Route to export employee data as PDF
+app.get('/Home/employeeInfo/export/pdf', async (req, res) => {
+    try {
+        const employeeInfo = await fetchEmpInfo();
+        generatePDF(employeeInfo, res);
+    } catch (err) {
+        console.error('Error exporting to PDF:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+// Route to export employee data as Excel
+app.get('/Home/employeeInfo/export/excel', async (req, res) => {
+    try {
+        const employeeInfo = await fetchEmpInfo();
+        await generateExcel(employeeInfo, res);
+    } catch (err) {
+        console.error('Error exporting to Excel:', err);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 app.delete("/Home/employeeInfo/:id", async (req, res) => {
     try {
         const eCodeToDelete = req.params.id;
@@ -524,24 +756,24 @@ app.get('/Home/employeeInfo/new',async (req,res)=>{
 });
 app.post("/empsaveData", (req, res) => {
     const {
-        eCode, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed, corrAddress,
+        code, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed, corrAddress,
         permAddress, FatherName, Caste, Gender, bDay, IdentityMark, KnownLang, Education, BloodGrp, Mothertongue
     } = req.body;
 
-    if (!eCode || !eName || !Type) {
-        console.log(eCode);
+    if (!code || !eName || !Type) {
+        console.log(code);
         return res.status(400).send("Employee code, name, and type are required");
     }
 
     const query = `
         INSERT INTO employeeInfo (
-            eCode, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed, corrAddress,
+            code, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed, corrAddress,
             permAddress, FatherName, Caste, Gender, bDay, IdentityMark, KnownLang, Education, BloodGrp, Mothertongue
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const values = [
-        eCode, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed ? 1 : 0, corrAddress,
+        code, eName, Type, gradCode, sectCode, branchCode, joiningDate, permDate, basic, ptDed ? 1 : 0, corrAddress,
         permAddress, FatherName, Caste, Gender, bDay, IdentityMark, KnownLang, Education, BloodGrp, Mothertongue
     ];
 
@@ -554,7 +786,32 @@ app.post("/empsaveData", (req, res) => {
         res.redirect("/Home/employeeInfo");
     });
 });
+app.get("/Home/employeeInfo/:id/employeeInfoModify",async (req,res)=>{
+   // Display form to modify employee info
+    const empId = req.params.id;
 
+    // Fetch employee information from the database based on the employee ID
+    const sql = 'SELECT * FROM employeeInfo WHERE eCode = ?';
+    connection.query(sql, [empId], (err, results) => {
+        if (err) {
+            console.error("Error fetching employee info:", err);
+            req.flash("error", "Failed to fetch employee info");
+            return res.redirect('/employeeInfo'); // Redirect to employee info page
+        }
+
+        if (results.length === 0) {
+            req.flash("error", "Employee not found");
+            return res.redirect('/employeeInfo'); // Redirect to employee info page
+        }
+
+        const employeeInfo = results[0];
+        // Render the form to modify employee info with the fetched data
+        res.render('employeeInfoModify', { employeeInfo });res.render("payrolls/employeeInfo/employeeInfoModify",{employeeInfo});
+
+});
+
+    
+});
 
 
 app.get("/payCorrection",(req,res)=>{
@@ -580,3 +837,4 @@ function formatDate(date) {
     hours = hours % 12 || 12; // Convert to 12-hour format
     return `${day}, ${month}, ${year} | ${hours}:${minutes}:${seconds}:${meridiem}`;
   }
+

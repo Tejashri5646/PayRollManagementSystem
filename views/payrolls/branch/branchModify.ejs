@@ -1,0 +1,31 @@
+<% layout('./layouts/boilerplate') %>
+<body>
+    <div class="home">
+        <nav>
+            <h6>Modify Branch Master</h6>
+        </nav>
+    </div>
+    <div class="modify">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="home-tab">
+                
+                <form id="saveForm" method="post" action="/updateBranchData">
+                    <div class="grad-container">
+                    <label for="code">Code: &nbsp;</label>
+                    <input type="text" id="code" name="code" value="<%= branchCode[0].code %>" readonly>
+                    </div>
+
+                     <div class="grad-container">
+                        <label for="name">Name: &nbsp;</label>
+                        <input type="text" id="name" name="name" value="<%= branchCode[0].name %>" required>
+                    </div>
+                    <div class="btn-grp-open">
+                        <button type="submit" class="btn btn-sm">Save</button>
+                        <button type="button" id="cancelbtn" class="btn btn-sm">Cancel</button>
+                        <button id="exitButton" class="btn btn-sm">Exit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>

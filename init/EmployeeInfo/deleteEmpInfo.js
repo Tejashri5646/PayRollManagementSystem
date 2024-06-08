@@ -1,6 +1,6 @@
 const mysql = require('mysql2/promise');
 
-async function deleteEmpInfo(eCode) {
+async function deleteEmpInfo(code) {
     try {
         const connection = await mysql.createConnection({
             host: 'localhost',
@@ -10,13 +10,13 @@ async function deleteEmpInfo(eCode) {
         });
 
         const sql = 'DELETE FROM employeeInfo WHERE eCode = ?';
-        const [result] = await connection.execute(sql, [eCode]);
+        const [result] = await connection.execute(sql, [code]);
         await connection.end();
 
         if (result.affectedRows === 0) {
-            console.log(`Employee with code ${eCode} not found`);
+            console.log(`Employee with code ${code} not found`);
         } else {
-            console.log(`Employee with code ${eCode} deleted successfully`);
+            console.log(`Employee with code ${code} deleted successfully`);
         }
 
         return result.affectedRows;

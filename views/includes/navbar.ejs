@@ -4,7 +4,7 @@
     
     <div class="user" >
         <div class="user-info time">
-            <span style="color: green;">Welcome! <%= username %></span><br>
+            <span style="color: green;">Welcome! <%= currentUser ? currentUser.username : 'Guest' %></span><br>
             <span style="color: darkgoldenrod;">Branch Name :- Head Office</span><br>
             
             <span> <%= formattedDate %></span>
